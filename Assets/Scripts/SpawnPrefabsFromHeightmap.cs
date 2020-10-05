@@ -26,7 +26,7 @@ public class SpawnPrefabsFromHeightmap : MonoBehaviour
         {
             GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
             go.transform.position = new Vector3(x, 0f, z);
-            go.GetComponent<Renderer>().SetPropertyBlock(biomeMatBlocks[biome]);
+            go.GetComponent<Renderer>().material.color = heightmap.colorLookupTable[biome];
             go.transform.SetParent(heightmap.transform);
         };
     }
