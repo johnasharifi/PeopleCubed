@@ -9,26 +9,30 @@ public class SpawnPrefabsFromHeightmap : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Dictionary<int, MaterialPropertyBlock> biomeMatBlocks = new Dictionary<int, MaterialPropertyBlock>();
-        foreach (int key in heightmap.colorLookupTable.Keys)
-        {
-            Color c = heightmap.colorLookupTable[key];
+        Dictionary<int, GameObject> resources = GetBiomeMapResourcePairs();
 
-            Texture2D tex = new Texture2D(1, 1);
-            tex.SetPixel(0, 0, c);
-            tex.Apply();
-
-            biomeMatBlocks[key] = new MaterialPropertyBlock();
-            biomeMatBlocks[key].SetTexture("_MainTex", tex);
-        }
-        
         heightmap.onBiomesGenerated += (int biome, int x, int z, Color c) =>
         {
-            GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            GameObject go = Instantiate<GameObject>(resources[biome]);
             go.transform.position = new Vector3(x, 0f, z);
-            go.GetComponent<Renderer>().material.color = heightmap.colorLookupTable[biome];
+            // go.GetComponent<Renderer>().material.color = heightmap.colorLookupTable[biome];
             go.transform.SetParent(heightmap.transform);
         };
+    }
+
+    static Dictionary<int,GameObject> GetBiomeMapResourcePairs()
+    {
+        Dictionary<int, GameObject> resources = new Dictionary<int, GameObject>();
+        resources[-1] = Resources.Load<GameObject>("PrefabBiomeEmpty");
+        resources[+1] = Resources.Load<GameObject>("PrefabBiomeEmpty");
+        resources[10] = Resources.Load<GameObject>("PrefabBiomeEmpty");
+        resources[5] = Resources.Load<GameObject>("PrefabBiomeWater");
+        resources[0] = Resources.Load<GameObject>("PrefabBiomeMountain");
+        resources[9] = Resources.Load<GameObject>("PrefabBiomeMountain");
+        resources[7] = Resources.Load<GameObject>("PrefabBiomePlains");
+        resources[8] = Resources.Load<GameObject>("PrefabBiomeForest");
+        return resources;
     }
 
     // Update is called once per frame
