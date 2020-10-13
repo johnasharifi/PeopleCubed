@@ -6,38 +6,41 @@ using UnityEngine;
 public class SpawnPrefabsFromHeightmap : MonoBehaviour
 {
     [SerializeField] private Heightmap heightmap;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        Dictionary<int, GameObject> resources = GetBiomeMapResourcePairs();
 
-        heightmap.onBiomesGenerated += (int biome, int x, int z, Color c) =>
+    [SerializeField] private List<GameObject> submaps = new List<GameObject>();
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Dictionary<int, Material> materials = GetBiomeMapResourcePairs();
+        Dictionary<int,Mesh> meshes = BiomeToFloodfilledMesh.GetMeshesFromHeightmap(heightmap);
+
+        foreach (KeyValuePair<int, Mesh> pair in meshes)
         {
-            // GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            GameObject go = Instantiate<GameObject>(resources[biome]);
-            go.transform.position = new Vector3(x, 0f, z);
-            // go.GetComponent<Renderer>().material.color = heightmap.colorLookupTable[biome];
-            go.transform.SetParent(heightmap.transform);
-        };
+            GameObject submap = new GameObject("submesh " + pair.Key);
+            MeshFilter mf = submap.AddComponent<MeshFilter>();
+            MeshRenderer mr = submap.AddComponent<MeshRenderer>();
+
+            mf.mesh = pair.Value;
+            mr.material = materials[pair.Key];
+
+            submap.transform.SetParent(this.transform);
+            submap.transform.localRotation = Quaternion.identity;
+        }
     }
 
-    static Dictionary<int,GameObject> GetBiomeMapResourcePairs()
+    static Dictionary<int, Material> GetBiomeMapResourcePairs()
     {
-        Dictionary<int, GameObject> resources = new Dictionary<int, GameObject>();
-        resources[-1] = Resources.Load<GameObject>("PrefabBiomeEmpty");
-        resources[+1] = Resources.Load<GameObject>("PrefabBiomeEmpty");
-        resources[10] = Resources.Load<GameObject>("PrefabBiomeEmpty");
-        resources[5] = Resources.Load<GameObject>("PrefabBiomeWater");
-        resources[0] = Resources.Load<GameObject>("PrefabBiomeMountain");
-        resources[9] = Resources.Load<GameObject>("PrefabBiomeMountain");
-        resources[7] = Resources.Load<GameObject>("PrefabBiomePlains");
-        resources[8] = Resources.Load<GameObject>("PrefabBiomeForest");
+        Dictionary<int, Material> resources = new Dictionary<int, Material>();
+        resources[-1] = Resources.Load<Material>("MatWhiteInstance");
+        resources[+1] = Resources.Load<Material>("MatWhiteInstance");
+        resources[10] = Resources.Load<Material>("MatWhiteInstance");
+        resources[5] = Resources.Load<Material>("MatBlueInstance");
+        resources[0] = Resources.Load<Material>("MatRedInstance");
+        resources[9] = Resources.Load<Material>("MatRedInstance");
+        resources[7] = Resources.Load<Material>("MatOrangeInstance");
+        resources[8] = Resources.Load<Material>("MatGreenInstance");
         return resources;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
