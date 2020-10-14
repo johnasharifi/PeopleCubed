@@ -230,7 +230,7 @@ MeshCollider:
   m_GameObject: {fileID: 118465163}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -411,6 +411,7 @@ GameObject:
   - component: {fileID: 1295205733}
   - component: {fileID: 1295205732}
   - component: {fileID: 1295205731}
+  - component: {fileID: 1295205734}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -483,3 +484,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1295205734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295205730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 238d1e3e07aaf79499dfc578dc5ebf52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

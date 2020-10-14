@@ -17,7 +17,7 @@ public class SpawnPrefabsFromHeightmap : MonoBehaviour
 
         foreach (KeyValuePair<int, Mesh> pair in meshes)
         {
-            GameObject submap = new GameObject("submesh " + pair.Key);
+            GameObject submap = new GameObject("submesh " + (pair.Key >= 0? " ": "") + pair.Key.ToString("D2"));
             MeshFilter mf = submap.AddComponent<MeshFilter>();
             MeshRenderer mr = submap.AddComponent<MeshRenderer>();
 
@@ -26,6 +26,8 @@ public class SpawnPrefabsFromHeightmap : MonoBehaviour
 
             submap.transform.SetParent(this.transform);
             submap.transform.localRotation = Quaternion.identity;
+
+            submap.AddComponent<MeshCollider>();
         }
     }
 
