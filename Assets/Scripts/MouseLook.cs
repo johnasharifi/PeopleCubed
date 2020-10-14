@@ -7,7 +7,7 @@ public class MouseLook : MonoBehaviour
 {
     private Camera cam;
 
-    Vector3 inst_mouse_position = Vector3.zero;
+    Vector3 mousePositonInstantaneous = Vector3.zero;
 
     private const float camScopeSpeed = 100f;
     private const float camPanSpeed = 200f;
@@ -28,12 +28,12 @@ public class MouseLook : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            float dx = (Input.mousePosition.x - inst_mouse_position.x) / Screen.width;
-            float dy = (Input.mousePosition.y - inst_mouse_position.y) / Screen.height;
+            float dx = (Input.mousePosition.x - mousePositonInstantaneous.x) / Screen.width;
+            float dy = (Input.mousePosition.y - mousePositonInstantaneous.y) / Screen.height;
             transform.eulerAngles += new Vector3(Mathf.Clamp(dy, -2f, 2f) * -200f * Time.deltaTime, Mathf.Clamp(dx, -2f, 2f) * 200f * Time.deltaTime, 0f) * camRotateSpeed;
         }
 
-        inst_mouse_position = Input.mousePosition;
+        mousePositonInstantaneous = Input.mousePosition;
 
         Vector3 camPosition = transform.position;
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
