@@ -23,7 +23,11 @@ public class MouseLook : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-
+            RaycastHit hit;
+            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                Debug.LogFormat("hit a {0} at point {1}", hit.transform.name, hit.point);
+            }
         }
 
         if (Input.GetMouseButton(1))
