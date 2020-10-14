@@ -13,6 +13,10 @@ public class MouseLook : MonoBehaviour
     private const float camPanSpeed = 200f;
     private const float camRotateSpeed = 30f;
 
+    // step a bit over 50% of a one-unit-length-vector
+    // to ensure that our RoundToInt function does mismap any integers, e.g. 1.0 - (1E-10) -> 0.0
+    private const float normalStep = 0.55f;
+
     private void Start()
     {
         cam = GetComponent<Camera>();
@@ -26,7 +30,13 @@ public class MouseLook : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                Debug.LogFormat("hit a {0} at point {1}", hit.transform.name, hit.point);
+                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                // step in normal's direction
+                Vector3 p = hit.point + normalStep * hit.normal;
+                Vector3 clampedCubePoint = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
+                
+                cube.transform.position = clampedCubePoint;
             }
         }
 
