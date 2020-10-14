@@ -5,15 +5,27 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class MouseLook : MonoBehaviour
 {
+    private Camera cam;
+
     Vector3 inst_mouse_position = Vector3.zero;
 
     private const float camScopeSpeed = 100f;
     private const float camPanSpeed = 200f;
     private const float camRotateSpeed = 30f;
 
+    private void Start()
+    {
+        cam = GetComponent<Camera>();
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+
+        }
+
         if (Input.GetMouseButton(1))
         {
             float dx = (Input.mousePosition.x - inst_mouse_position.x) / Screen.width;
@@ -23,17 +35,17 @@ public class MouseLook : MonoBehaviour
 
         inst_mouse_position = Input.mousePosition;
 
-        Vector3 cam_pos = transform.position;
+        Vector3 camPosition = transform.position;
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
-            cam_pos.y -= Time.deltaTime * camScopeSpeed * Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"));
+            camPosition.y -= Time.deltaTime * camScopeSpeed * Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"));
         if (Input.GetKey(KeyCode.LeftArrow))
-            cam_pos -= Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized * Time.deltaTime * camPanSpeed;
+            camPosition -= Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized * Time.deltaTime * camPanSpeed;
         if (Input.GetKey(KeyCode.RightArrow))
-            cam_pos += Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized * Time.deltaTime * camPanSpeed;
+            camPosition += Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized * Time.deltaTime * camPanSpeed;
         if (Input.GetKey(KeyCode.UpArrow))
-            cam_pos += Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized * Time.deltaTime * camPanSpeed;
+            camPosition += Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized * Time.deltaTime * camPanSpeed;
         if (Input.GetKey(KeyCode.DownArrow))
-            cam_pos -= Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized * Time.deltaTime * camPanSpeed;
-        transform.position = cam_pos;
+            camPosition -= Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized * Time.deltaTime * camPanSpeed;
+        transform.position = camPosition;
     }
 }
