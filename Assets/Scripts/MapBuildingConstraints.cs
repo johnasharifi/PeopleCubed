@@ -13,11 +13,6 @@ public class MapBuildingConstraints
     [SerializeField] private GameObject building;
 
     HashSet<int> biomeTypes = new HashSet<int>();
-
-    private MapBuildingConstraints()
-    {
-        biomeTypes = new HashSet<int>(potentialBiomeTypes);
-    }
     
     /// <summary>
     /// A method for checking if the building can spawn.
@@ -28,6 +23,11 @@ public class MapBuildingConstraints
     /// <returns>True if we can build this building in this biome.</returns>
     public bool IsBuildingConstraintFulfilled(int proposedBiomeType)
     {
+        // for now, regen biomes each time the constraint is checked, since there are issues with constructor-time 
+        // vars being edited during edit mode then starting play
+
+        biomeTypes.Clear();
+        biomeTypes.UnionWith(potentialBiomeTypes);
         return biomeTypes.Contains(proposedBiomeType);
     }
 
