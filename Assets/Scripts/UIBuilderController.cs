@@ -32,13 +32,21 @@ public class UIBuilderController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                SubmeshFilter hitSubmeshFilter;
+                if (hit.transform.TryGetComponent<SubmeshFilter>(out hitSubmeshFilter))
+                {
+                    if (buildings[activeBuildingIndex].IsBuildingConstraintFulfilled(hitSubmeshFilter.biome))
+                    {
+                        GameObject cube = buildings[activeBuildingIndex].GetBuildingInstance();
+                        
+                        // step in normal's direction
+                        Vector3 p = hit.point + normalStep * hit.normal;
+                        Vector3 clampedCubePoint = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
 
-                // step in normal's direction
-                Vector3 p = hit.point + normalStep * hit.normal;
-                Vector3 clampedCubePoint = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
-
-                cube.transform.position = clampedCubePoint;
+                        cube.transform.position = clampedCubePoint;
+                    }
+                }
+                
             }
         }
     }
