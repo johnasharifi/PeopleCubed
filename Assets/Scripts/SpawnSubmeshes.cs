@@ -31,6 +31,9 @@ public class SpawnSubmeshes : MonoBehaviour
             submap.transform.localPosition = localp;
 
             submap.AddComponent<MeshCollider>();
+
+            SubmeshFilter subfilter = submap.AddComponent<SubmeshFilter>();
+            subfilter.biome = pair.Key;
         }
     }
 
