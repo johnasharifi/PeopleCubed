@@ -509,3 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4553429b2fdec8542829b13e9b3a3a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildings:
+  - potentialBiomeTypes: 010000000a000000
+    building: {fileID: 1631939764831568219, guid: ce7a439528fa25f45973e0a3647f3ed9,
+      type: 3}

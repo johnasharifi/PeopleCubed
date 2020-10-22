@@ -8,6 +8,9 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class UIBuilderController : MonoBehaviour
 {
+    [SerializeField] private List<MapBuildingConstraints> buildings = new List<MapBuildingConstraints>();
+    int activeBuildingIndex = 0;
+
     private Camera cam;
     
     // step a bit over 50% of a one-unit-length-vector
