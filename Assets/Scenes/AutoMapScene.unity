@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 1295205732}
   - component: {fileID: 1295205731}
   - component: {fileID: 1295205734}
+  - component: {fileID: 1295205735}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -496,3 +497,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238d1e3e07aaf79499dfc578dc5ebf52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1295205735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295205730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4553429b2fdec8542829b13e9b3a3a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildings:
+  - potentialBiomeTypes: 010000000a000000
+    building: {fileID: 1631939764831568219, guid: ce7a439528fa25f45973e0a3647f3ed9,
+      type: 3}

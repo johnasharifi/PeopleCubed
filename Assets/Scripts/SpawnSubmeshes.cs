@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Heightmap))]
-public class SpawnPrefabsFromHeightmap : MonoBehaviour
+public class SpawnSubmeshes : MonoBehaviour
 {
     [SerializeField] private Heightmap heightmap;
 
@@ -26,8 +26,14 @@ public class SpawnPrefabsFromHeightmap : MonoBehaviour
 
             submap.transform.SetParent(this.transform);
             submap.transform.localRotation = Quaternion.identity;
+            Vector3 localp = submap.transform.localPosition;
+            localp.z = submap.transform.localScale.z * -0.5f;
+            submap.transform.localPosition = localp;
 
             submap.AddComponent<MeshCollider>();
+
+            SubmeshFilter subfilter = submap.AddComponent<SubmeshFilter>();
+            subfilter.biome = pair.Key;
         }
     }
 
