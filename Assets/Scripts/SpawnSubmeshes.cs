@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Heightmap))]
-public class SpawnPrefabsFromHeightmap : MonoBehaviour
+public class SpawnSubmeshes : MonoBehaviour
 {
     [SerializeField] private Heightmap heightmap;
 
