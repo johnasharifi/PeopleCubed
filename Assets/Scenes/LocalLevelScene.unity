@@ -510,6 +510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildings:
-  - potentialBiomeTypes: 010000000a000000
+  - potentialBiomeTypes: 010000000a000000090000000800000007000000
     building: {fileID: 1631939764831568219, guid: ce7a439528fa25f45973e0a3647f3ed9,
       type: 3}
