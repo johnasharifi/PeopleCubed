@@ -32,21 +32,34 @@ public class UIBuilderController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                SubmeshFilter hitSubmeshFilter;
-                if (hit.transform.TryGetComponent<SubmeshFilter>(out hitSubmeshFilter))
+                // LMB + CTRL = delete
+                if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
                 {
-                    if (buildings[activeBuildingIndex].IsBuildingConstraintFulfilled(hitSubmeshFilter.biome))
+                    MapBuilding building;
+                    if (hit.transform.TryGetComponent<MapBuilding>(out building))
                     {
-                        GameObject cube = buildings[activeBuildingIndex].GetBuildingInstance();
-                        
-                        // step in normal's direction
-                        Vector3 p = hit.point + normalStep * hit.normal;
-                        Vector3 clampedCubePoint = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
-
-                        cube.transform.position = clampedCubePoint;
+                        Destroy(building.gameObject);
                     }
                 }
-                
+
+                // LMB + no modifier = spawn a building
+                else
+                {
+                    SubmeshFilter hitSubmeshFilter;
+                    if (hit.transform.TryGetComponent<SubmeshFilter>(out hitSubmeshFilter))
+                    {
+                        if (buildings[activeBuildingIndex].IsBuildingConstraintFulfilled(hitSubmeshFilter.biome))
+                        {
+                            GameObject cube = buildings[activeBuildingIndex].GetBuildingInstance();
+
+                            // step in normal's direction
+                            Vector3 p = hit.point + normalStep * hit.normal;
+                            Vector3 clampedCubePoint = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
+
+                            cube.transform.position = clampedCubePoint;
+                        }
+                    }
+                }
             }
         }
     }
