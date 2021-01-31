@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f8a8061099ba143af57a0b7b505cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dim1: 128
-  dim2: 128
+  dim1: 192
+  dim2: 192
   m_biomeFilterLookupTable:
     filters:
     - m_originClass: -1
