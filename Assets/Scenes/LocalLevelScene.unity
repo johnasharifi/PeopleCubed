@@ -169,9 +169,9 @@ MonoBehaviour:
       m_targetClass: 10
       m_failClass: 1
       m_predicateType: 1
-      m_predicatePerlinScale: 15
-      m_predicateThresholdA: 0.1
-      m_predicateThresholdB: 0.4
+      m_predicatePerlinScale: 30
+      m_predicateThresholdA: 0.2
+      m_predicateThresholdB: 0.45
     - m_originClass: 1
       m_targetClass: 0
       m_failClass: 1
