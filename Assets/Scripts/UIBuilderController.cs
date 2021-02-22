@@ -9,6 +9,8 @@ using UnityEngine;
 public class UIBuilderController : MonoBehaviour
 {
     [SerializeField] private List<MapBuildingConstraints> buildings = new List<MapBuildingConstraints>();
+    [SerializeField] private List<MapEntity> units = new List<MapEntity>();
+
     int activeBuildingIndex = 0;
 
     private Camera cam;
@@ -35,11 +37,18 @@ public class UIBuilderController : MonoBehaviour
                 // LMB + CTRL = delete
                 if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
                 {
-                    MapBuilding building;
-                    if (hit.transform.TryGetComponent<MapBuilding>(out building))
+                    MapEntity entity;
+                    if (hit.transform.TryGetComponent<MapEntity>(out entity))
                     {
-                        Destroy(building.gameObject);
+                        Destroy(entity.gameObject);
                     }
+                }
+
+                // LMB + SHFT = spawn unit
+                else if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+                {
+                    // spawn a unit here
+                    GameObject go = Instantiate<GameObject>(units[activeBuildingIndex].gameObject, hit.point, Quaternion.identity);
                 }
 
                 // LMB + no modifier = spawn a building
