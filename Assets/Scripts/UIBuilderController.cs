@@ -53,7 +53,11 @@ public class UIBuilderController : MonoBehaviour
                         // LMB + SHFT = spawn unit
                         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                         {
-                            GameObject go = Instantiate<GameObject>(units[activeBuildingIndex].gameObject, hit.point, Quaternion.identity);
+                            GameObject unit = Instantiate<GameObject>(units[activeBuildingIndex].gameObject, hit.point, Quaternion.identity);
+                            Vector3 p = hit.point + normalStep * hit.normal;
+                            Vector3 clampedUnitPoint = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
+
+                            unit.transform.position = clampedUnitPoint;
                         }
 
                         // LMB without modifier = spawn building
