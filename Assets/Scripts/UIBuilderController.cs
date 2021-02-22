@@ -9,6 +9,8 @@ using UnityEngine;
 public class UIBuilderController : MonoBehaviour
 {
     [SerializeField] private List<MapBuildingConstraints> buildings = new List<MapBuildingConstraints>();
+    [SerializeField] private List<MapEntity> units = new List<MapEntity>();
+
     int activeBuildingIndex = 0;
 
     private Camera cam;
@@ -35,20 +37,31 @@ public class UIBuilderController : MonoBehaviour
                 // LMB + CTRL = delete
                 if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
                 {
-                    MapBuilding building;
-                    if (hit.transform.TryGetComponent<MapBuilding>(out building))
+                    MapEntity entity;
+                    if (hit.transform.TryGetComponent<MapEntity>(out entity))
                     {
-                        Destroy(building.gameObject);
+                        Destroy(entity.gameObject);
                     }
                 }
-
-                // LMB + no modifier = spawn a building
+                
+                // LMB
                 else
                 {
                     SubmeshFilter hitSubmeshFilter;
                     if (hit.transform.TryGetComponent<SubmeshFilter>(out hitSubmeshFilter))
                     {
-                        if (buildings[activeBuildingIndex].IsBuildingConstraintFulfilled(hitSubmeshFilter.biome))
+                        // LMB + SHFT = spawn unit
+                        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                        {
+                            GameObject unit = Instantiate<GameObject>(units[activeBuildingIndex].gameObject, hit.point, Quaternion.identity);
+                            Vector3 p = hit.point + normalStep * hit.normal;
+                            Vector3 clampedUnitPoint = new Vector3(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
+
+                            unit.transform.position = clampedUnitPoint;
+                        }
+
+                        // LMB without modifier = spawn building
+                        else if (buildings[activeBuildingIndex].IsBuildingConstraintFulfilled(hitSubmeshFilter.biome))
                         {
                             GameObject cube = buildings[activeBuildingIndex].GetBuildingInstance();
 

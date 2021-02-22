@@ -514,3 +514,5 @@ MonoBehaviour:
   - potentialBiomeTypes: 010000000a000000090000000800000007000000
     building: {fileID: 1631939764831568219, guid: ce7a439528fa25f45973e0a3647f3ed9,
       type: 3}
+  units:
+  - {fileID: 697600174094638933, guid: c17dd87cab943f44ab1c0f7c5cb35b99, type: 3}
