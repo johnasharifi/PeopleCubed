@@ -50,7 +50,7 @@ public class SubmeshFilter : MonoBehaviour
             // apply a translation to grid
             MeshFilter mf = GetComponent<MeshFilter>();
             Renderer.material.SetTextureScale("_MainTex", Vector2.one * Heightmap.getDim(0));
-            mf.mesh.SetUVs(0, mf.mesh.vertices.ToList().Select(x => new Vector2(x.x - gridTranslate, x.y - gridTranslate) / Heightmap.getDim(0)).ToList());
+            mf.mesh.SetUVs(0, mf.mesh.vertices.ToList().Select(x => new Vector3((x.x - gridTranslate) / Heightmap.getDim(0), (x.y - gridTranslate) / Heightmap.getDim(0), 0.5f)).ToList());
         }
     }
 }
