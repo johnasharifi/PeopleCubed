@@ -43,21 +43,21 @@ public class UIBuilderController : MonoBehaviour
                         Destroy(entity.gameObject);
                     }
                 }
-
-                // LMB + SHFT = spawn unit
-                else if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
-                {
-                    // spawn a unit here
-                    GameObject go = Instantiate<GameObject>(units[activeBuildingIndex].gameObject, hit.point, Quaternion.identity);
-                }
-
-                // LMB + no modifier = spawn a building
+                
+                // LMB
                 else
                 {
                     SubmeshFilter hitSubmeshFilter;
                     if (hit.transform.TryGetComponent<SubmeshFilter>(out hitSubmeshFilter))
                     {
-                        if (buildings[activeBuildingIndex].IsBuildingConstraintFulfilled(hitSubmeshFilter.biome))
+                        // LMB + SHFT = spawn unit
+                        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                        {
+                            GameObject go = Instantiate<GameObject>(units[activeBuildingIndex].gameObject, hit.point, Quaternion.identity);
+                        }
+
+                        // LMB without modifier = spawn building
+                        else if (buildings[activeBuildingIndex].IsBuildingConstraintFulfilled(hitSubmeshFilter.biome))
                         {
                             GameObject cube = buildings[activeBuildingIndex].GetBuildingInstance();
 
