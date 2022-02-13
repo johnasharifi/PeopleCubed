@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapBuilding : MapEntity
+public class MapBuilding : MapUnit
 {
 }
